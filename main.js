@@ -58,10 +58,18 @@ function pollVoteSpam(pUrl, pOption) {
     });
 }
 
+let voteCount = 0;
 function voteSequence(vote_url, option) {
-    console.log(option)
+    console.log(`Vote count: ${voteCount}`);
     getId().then((id) => {
-        vote(vote_url, id, option).then(() => { voteSequence(vote_url, option) });
+        // This waits for one vote to finish then votes again
+        //vote(vote_url, id, option).then(() => { voteSequence(vote_url, option) });
+        
+        // This votes without waiting
+        vote(vote_url, id, option).then(() => {
+            voteCount++;
+        });
+        voteSequence(vote_url, option);
     });
 }
 
