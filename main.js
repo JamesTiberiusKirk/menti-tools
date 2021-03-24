@@ -48,17 +48,20 @@ function pollVoteSpam(pUrl, pOption) {
         var vote_url = `https://www.menti.com/core/votes/${activeQuestion.pubk}`;
 
         var option = { question_type: "choices", vote: "to_be_filled" };
+        console.log('Available options:');
+        console.log(activeQuestion.option);
         option.vote = activeQuestion.option.id;
 
-        voteSequence(vote_url,option);
+        voteSequence(vote_url, option);
     }).catch(err => {
         console.error(err)
     });
 }
 
-function voteSequence(vote_url,option) {
+function voteSequence(vote_url, option) {
+    console.log(option)
     getId().then((id) => {
-        vote(vote_url, id, option).then(() => { voteSequence(vote_url,options) });
+        vote(vote_url, id, option).then(() => { voteSequence(vote_url, option) });
     });
 }
 
